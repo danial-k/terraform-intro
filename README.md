@@ -28,32 +28,55 @@ git clone https://github.com/tfutils/tfenv.git ~/software/tfenv
 ```
 Make the binaries available to your shell:
 Note that ```${HOME}``` or ```$HOME``` is an alias for home directory ```~``` which points to ```/Users/yourusername``` (MacOS) or ```/home/yourusername``` (Linux).
+Follow the instructions below depending on the shell you are using.
 ### zsh
 Edit ```.zshrc``` in your home directory with an editor (e.g. ```nano``` or ```vi```) and add the following.
 If ```~/.zshrc``` does not exist, create it and add the following:
 ```shell
 path+=("${HOME}/software/tfenv/bin")
 ```
+Reload terminal or run ```source ~/.zshrc``` for the new binaries to be available.
 ### bash
 Edit ```.bashrc``` or ```.bash_profile``` in your home directory with an editor (e.g. ```nano``` or ```vi```) and add the following.
 ```bash
 export PATH="$HOME/software/tfenv/bin:$PATH"'
 ```
+Reload terminal or run ```source ~/.bashrc``` ```source ~/.bash_profile``` for the new binaries to be available.
 
 # Prepare docker images
 In this tutorial, we will set up an nginx load balancer to direct traffic to three different backend servers.
-nginx is a high-performance web server that functions particularly well as a simple reverse-proxy that receives requests and proxies those request to a number of backends.
+nginx is a high-performance web server that functions particularly well as a reverse-proxy that receives requests and proxies those request to a number of backends.
 Build a local docker image with a customised nginx configuration (see [nginx/Dockerfile] and [nginx/default.conf])
 ```shell
 cd nginx
 docker build -t terraform-demo/nginx:1.0.0 .
 ```
-Here we are creating a new docker image locally and tagging (```-t```) with the name ```terraform-demo/nginx``` and version ```1.0.0```.
+Here we are creating a new docker image locally and tagging (```-t```) with the name ```terraform-demo/nginx``` and version ```1.0.0```. The `.` at the end instructs the Docker engine to use the current directory (`.`) as the build context.  The build context consists of all the files and sub-directories available during build.
+
+# Prepare Terraform with tfenv
+Notice the ```.terraform-version``` file in the project root.
+This file will instruct tfenv to fetch a specific version of terraform and use it for this project.
+Assuming you do not have any terraform versions installed already:
+```
+tfenv install
+```
+To verify the version of your installation:
+```shell
+terraform --version
+```
 
 # Run Terraform
-Navigate to the [terraform] directory:
+Examine the contents of [main.tf].
+Run the following command to initialise Terraform into your local directory:
 ```shell
-cd terraform
+terraform init
 ```
-Notice the ```.terraformversion``` file.  If tfenv has been installed, this file will instruct tfenv to fetch a specific version of terraform and use it for this project.
-
+To view the changes that Terraform will suggest to your local infrastructure:
+```
+terraform plan
+```
+To apply the changes:
+```
+terraform apply
+```
+Confirm by entering `yes`.
