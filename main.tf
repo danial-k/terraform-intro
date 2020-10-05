@@ -20,7 +20,7 @@ resource "docker_image" "whoami" {
 
 # Image (nginx)
 resource "docker_image" "nginx" {
-  name = "nginx-whoami-proxy:1.0.2"
+  name = "terraform-demo/nginx:1.0.1"
 }
 
 # Container (nginx)

@@ -39,7 +39,7 @@ Reload terminal or run ```source ~/.zshrc``` for the new binaries to be availabl
 ### bash
 Edit ```.bashrc``` or ```.bash_profile``` in your home directory with an editor (e.g. ```nano``` or ```vi```) and add the following.
 ```bash
-export PATH="$HOME/software/tfenv/bin:$PATH"'
+export PATH="$HOME/software/tfenv/bin:$PATH"
 ```
 Reload terminal or run ```source ~/.bashrc``` ```source ~/.bash_profile``` for the new binaries to be available.
 
